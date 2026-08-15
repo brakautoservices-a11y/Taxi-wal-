@@ -289,6 +289,9 @@
   #devis-status{display:none;margin-top:12px;padding:12px 14px;border-radius:8px;font-size:.88rem;}
   #devis-status.ok{display:block;background:rgba(30,107,60,.12);color:var(--green);}
   #devis-status.err{display:block;background:rgba(179,20,27,.1);color:var(--brass);}
+  #booking-status{display:none;margin-top:12px;padding:12px 14px;border-radius:8px;font-size:.88rem;}
+  #booking-status.ok{display:block;background:rgba(30,107,60,.12);color:var(--green);}
+  #booking-status.err{display:block;background:rgba(179,20,27,.1);color:var(--brass);}
 
   /* ---------- MODALE INFO (service / véhicule) ---------- */
   #info-overlay{
@@ -1073,6 +1076,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="form-actions">
           <button type="submit" class="btn btn-brass">Envoyer la demande</button>
         </div>
+        <div id="booking-status"></div>
       </form>
     </div>
   </section>
@@ -1250,23 +1254,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("booking-form").addEventListener("submit", function(e){
     e.preventDefault();
-    const nom = document.getElementById("nom").value;
-    const tel = document.getElementById("tel").value;
-    const depart = document.getElementById("depart").value;
-    const dest = document.getElementById("dest").value;
-    const date = document.getElementById("date").value;
-    const passagers = document.getElementById("passagers").value;
-    const message = document.getElementById("message").value;
+    const bookingForm = document.getElementById("booking-form");
+    const bookingStatus = document.getElementById("booking-status");
+    const btn = bookingForm.querySelector("button[type=submit]");
+    btn.disabled = true;
+    bookingStatus.className = "";
+    bookingStatus.textContent = "";
 
-    // Envoi par mail via Formspree
     fetch(CONFIG.formspree_endpoint, {
       method:"POST",
       headers:{"Accept":"application/json"},
-      body:new FormData(document.getElementById("booking-form"))
-    }).catch(()=>{});
-
-    const texte = `Bonjour Taxi Wal,%0A%0ANom: ${nom}%0ATéléphone: ${tel}%0ADépart: ${depart}%0ADestination: ${dest}%0ADate: ${date}%0APassagers: ${passagers}%0AMessage: ${message}`;
-    window.open(`https://wa.me/${CONFIG.whatsapp_numero}?text=${texte}`, "_blank");
+      body:new FormData(bookingForm)
+    }).then(res => {
+      btn.disabled = false;
+      if(res.ok){
+        bookingStatus.className = "ok";
+        bookingStatus.textContent = "✅ Merci ! Votre demande a bien été envoyée, nous vous répondons rapidement.";
+        bookingForm.reset();
+      } else {
+        throw new Error("send failed");
+      }
+    }).catch(() => {
+      btn.disabled = false;
+      bookingStatus.className = "err";
+      bookingStatus.innerHTML = `⚠️ L'envoi a échoué. Contactez-nous directement par <a href="mailto:${CONFIG.email}" style="text-decoration:underline;">email</a> ou <a href="https://wa.me/${CONFIG.whatsapp_numero}" target="_blank" rel="noopener" style="text-decoration:underline;">WhatsApp</a>.`;
+    });
   });
 
   // ---------- MODALE DEVIS ----------
