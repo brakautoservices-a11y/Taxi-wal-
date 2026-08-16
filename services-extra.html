@@ -10,7 +10,6 @@
 <style>
   :root{
     --ink:#111111;
-    --ink-light:#242424;
     --paper:#F7F5EF;
     --paper-dim:#ECE9E2;
     --brass:#B3141B;
@@ -19,7 +18,6 @@
     --green-light:#2C8A4E;
     --slate:#5B5B5B;
     --line:#DEDACE;
-    --ok:#1E6B3C;
     --radius:10px;
     --maxw:1120px;
   }
@@ -46,9 +44,7 @@
     border-bottom:1px solid var(--line);
   }
   .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;}
-  .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:1.25rem;}
-  .brand svg{display:block;}
-  .logo-footer{width:34px;height:34px;}
+  .brand{font-family:'Fraunces',serif;font-weight:700;font-size:1.25rem;}
   nav.links{display:flex;gap:28px;font-size:.92rem;font-weight:500;}
   nav.links a:hover{color:var(--brass);}
   .nav-cta{display:flex;gap:10px;align-items:center;}
@@ -61,81 +57,23 @@
   }
   .btn:hover{transform:translateY(-1px);}
   .btn-primary{background:var(--ink);color:var(--paper);}
-  .btn-primary:hover{background:var(--ink-light);}
-  .btn-brass{background:var(--brass);color:#1a1200;}
+  .btn-primary:hover{background:#242424;}
+  .btn-brass{background:var(--brass);color:#fff;}
   .btn-brass:hover{background:var(--brass-light);}
   .btn-ghost{border-color:var(--ink);color:var(--ink);}
   .btn-ghost:hover{background:var(--ink);color:var(--paper);}
-  .menu-toggle{display:none;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink);}
 
-  /* ---------- HERO ---------- */
-  .hero{
-    padding:64px 0 56px;
-    display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;
-  }
+  /* ---------- SECTION HEAD ---------- */
+  section{padding:44px 0;}
+  .section-head{max-width:640px;margin-bottom:28px;}
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
     font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-    color:var(--brass);margin-bottom:18px;
+    color:var(--green-light);margin-bottom:10px;
   }
-  .eyebrow .line{width:22px;height:1px;background:var(--brass);}
-  .hero h1{font-size:2.9rem;letter-spacing:-.01em;margin-bottom:18px;}
-  .hero h1 em{font-style:normal;color:var(--brass);}
-  .hero p.lead{font-size:1.08rem;color:var(--slate);max-width:46ch;margin-bottom:28px;}
-  .hero .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px;}
-  .trust-row{display:flex;gap:22px;flex-wrap:wrap;font-size:.88rem;color:var(--slate);}
-  .trust-row strong{color:var(--ink);}
-  .stars{color:var(--green);letter-spacing:1px;}
-
-  .hero-card{
-    background:var(--ink);color:var(--paper);
-    border-radius:16px;padding:28px;
-    position:relative;overflow:hidden;
-  }
-  .hero-card::before{
-    content:"";position:absolute;inset:0;
-    background:radial-gradient(circle at 85% 0%, rgba(184,134,59,.35), transparent 55%);
-  }
-  .hero-card h3{font-size:1.15rem;margin-bottom:4px;position:relative;}
-  .hero-card p{color:#C9CFDC;font-size:.88rem;margin-bottom:18px;position:relative;}
-  .quote-list{position:relative;display:flex;flex-direction:column;gap:10px;}
-  .quote-item{
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:10px;padding:12px 14px;
-    display:flex;justify-content:space-between;align-items:center;
-    font-size:.9rem;
-  }
-  .quote-item span:last-child{color:var(--green-light);font-weight:600;}
-
-  /* ---------- ROUTE DIVIDER (signature element) ---------- */
-  .route{
-    display:flex;align-items:center;gap:10px;
-    padding:6px 0 44px;color:var(--slate);font-size:.8rem;font-weight:600;
-    letter-spacing:.04em;text-transform:uppercase;
-  }
-  .route .track{flex:1;height:1px;background:repeating-linear-gradient(90deg,var(--brass) 0 6px, transparent 6px 12px);}
-
-  /* ---------- SECTION BASE ---------- */
-  section{padding:60px 0;}
-  .section-head{max-width:640px;margin-bottom:36px;}
-  .section-head .eyebrow{margin-bottom:10px;}
-  .section-head h2{font-size:2rem;}
-  .section-head p{color:var(--slate);margin-top:10px;}
-
-  /* ---------- SERVICES ---------- */
-  .service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
-  .service-card{
-    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-    padding:24px 20px;transition:border-color .15s, transform .15s;
-  }
-  .service-card:hover{border-color:var(--brass);transform:translateY(-3px);}
-  .service-card .icon{
-    width:38px;height:38px;border-radius:9px;background:var(--paper-dim);
-    display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:1.1rem;
-  }
-  .service-card h3{font-size:1.05rem;margin-bottom:8px;}
-  .service-card p{font-size:.88rem;color:var(--slate);}
+  .eyebrow .line{width:22px;height:1px;background:var(--green-light);}
+  .section-head h2{font-size:1.9rem;}
+  .section-head p{color:var(--slate);margin-top:8px;}
 
   /* ---------- COLIS & VEHICULES ---------- */
   .split-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
@@ -157,135 +95,31 @@
   .split-card ul li{font-size:.86rem;color:#E8E8E8;display:flex;gap:8px;align-items:flex-start;}
   .split-card ul li::before{content:"—";color:inherit;opacity:.6;flex-shrink:0;}
 
-
-  .fleet-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
-  .fleet-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;text-align:center;}
-  .fleet-photo{
-    width:100%;aspect-ratio:4/3;background:var(--paper-dim) center/cover no-repeat;
-    display:flex;align-items:center;justify-content:center;color:var(--slate);font-size:.78rem;
-  }
-  .fleet-card .fleet-body{padding:18px 16px;}
-  .fleet-card .badge{
-    font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
-    color:var(--green);margin-bottom:8px;display:block;
-  }
-  .fleet-card h3{font-size:1rem;margin-bottom:4px;}
-  .fleet-card p{font-size:.82rem;color:var(--slate);}
-
-  /* ---------- COVERAGE ---------- */
-  .coverage-box{
-    background:var(--ink);color:var(--paper);border-radius:16px;
-    padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:32px;
-  }
-  .coverage-box h3{font-size:1.2rem;margin-bottom:12px;color:var(--brass-light);}
-  .coverage-box .pill-list{display:flex;flex-wrap:wrap;gap:8px;}
-  .pill{
-    font-size:.82rem;padding:6px 12px;border-radius:999px;
-    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
-  }
-
-  /* ---------- REVIEWS ---------- */
-  .review-summary{
-    display:flex;align-items:center;gap:20px;flex-wrap:wrap;
-    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-    padding:26px 28px;margin-bottom:24px;
-  }
-  .rating-num{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:700;color:var(--ink);}
-  .review-summary .stars{font-size:1.2rem;}
-  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-  .review-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;}
-  .review-card .stars{font-size:.9rem;margin-bottom:10px;display:block;}
-  .review-card p{font-size:.88rem;color:var(--slate);margin-bottom:12px;}
-  .review-card .who{font-size:.82rem;font-weight:600;color:var(--ink);}
-
-  .estimate-box{
-    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-    padding:24px;margin-bottom:24px;
-  }
-  .estimate-box h3{font-size:1.1rem;margin-bottom:6px;}
-  .estimate-disclaimer{
-    background:var(--paper-dim);border-left:3px solid var(--brass);
-    border-radius:6px;padding:12px 14px;font-size:.82rem;color:var(--slate);margin-top:14px;
-  }
-  #estimate-result{
-    margin-top:14px;padding:16px;border-radius:8px;background:#111;color:#fff;display:none;
-  }
-  #estimate-result .price{font-family:'Fraunces',serif;font-size:1.6rem;color:var(--green-light);}
-
-
-  .booking{
-    background:var(--paper-dim);border-radius:16px;padding:40px;
-    display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;
-  }
-  .booking-info h2{font-size:1.7rem;margin-bottom:12px;}
-  .booking-info p{color:var(--slate);margin-bottom:20px;}
-  .contact-line{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:.94rem;}
-  .contact-line .ico{width:30px;height:30px;border-radius:8px;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;}
-  form{display:grid;gap:12px;}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  label{font-size:.78rem;font-weight:600;color:var(--slate);margin-bottom:5px;display:block;}
-  input,select,textarea{
-    width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:8px;
-    font-family:'Inter',sans-serif;font-size:.92rem;background:#fff;color:var(--ink);
-  }
-  input:focus,select:focus,textarea:focus{outline:2px solid var(--brass);outline-offset:1px;border-color:var(--brass);}
-  textarea{resize:vertical;min-height:80px;}
-  .form-actions{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap;}
-
   /* ---------- FOOTER ---------- */
-  footer{border-top:1px solid var(--line);padding:36px 0;margin-top:20px;}
+  footer{border-top:1px solid var(--line);padding:28px 0;margin-top:16px;}
   .footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.85rem;color:var(--slate);}
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:960px){
-    .hero{grid-template-columns:1fr;}
-    .service-grid{grid-template-columns:repeat(2,1fr);}
-    .fleet-grid{grid-template-columns:repeat(2,1fr);}
-    .coverage-box{grid-template-columns:1fr;}
-    .review-grid{grid-template-columns:1fr;}
-    .booking{grid-template-columns:1fr;padding:26px;}
+    .split-grid{grid-template-columns:1fr;}
   }
   @media (max-width:680px){
     nav.links{display:none;}
-    .menu-toggle{display:block;}
-    .hero h1{font-size:2.1rem;}
-    .service-grid{grid-template-columns:1fr;}
-    .fleet-grid{grid-template-columns:1fr;}
-    .form-row{grid-template-columns:1fr;}
     .nav-cta .btn-ghost{display:none;}
   }
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
-    .btn,.service-card{transition:none;}
+    .btn{transition:none;}
   }
-</style>
-<style>
-  .split-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-  .split-card{border-radius:16px;padding:32px;color:var(--paper);position:relative;overflow:hidden;}
-  .split-card.colis{background:linear-gradient(155deg, #1a1a1a 0%, #111 60%);}
-  .split-card.vehicules{background:linear-gradient(155deg, #16241b 0%, #111 60%);}
-  .split-card .tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-bottom:14px;}
-  .split-card.colis .tag{background:rgba(179,20,27,.22);color:#FF7A7F;}
-  .split-card.vehicules .tag{background:rgba(30,107,60,.28);color:#6FDB94;}
-  .split-card h3{font-size:1.4rem;margin-bottom:10px;}
-  .split-card p{font-size:.92rem;color:#CFCFCF;margin-bottom:18px;max-width:42ch;}
-  .split-card ul{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
-  .split-card ul li{font-size:.86rem;color:#E8E8E8;display:flex;gap:8px;align-items:flex-start;}
-  .split-card ul li::before{content:"—";color:inherit;opacity:.6;flex-shrink:0;}
-  @media (max-width:960px){.split-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap nav">
-    <a href="index.html" class="brand">
-      <img src="logo-taxiwal.jpg" alt="Taxi Wal" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
-      Taxi Wal
-    </a>
+    <a href="index.html" class="brand">Taxi Wal</a>
     <nav class="links">
       <a href="index.html#services">Services</a>
       <a href="services-extra.html">Colis & Véhicules</a>
-      <a href="index.html#flotte">Flotte</a>
       <a href="index.html#zone">Zone couverte</a>
       <a href="index.html#avis">Avis</a>
       <a href="index.html#reservation">Réservation</a>
@@ -294,7 +128,6 @@
       <a href="tel:+32495353594" class="btn btn-ghost">📞 0032 495 35 35 94</a>
       <a href="index.html#reservation" class="btn btn-brass">Réserver</a>
     </div>
-    <button class="menu-toggle" aria-label="Menu">☰</button>
   </div>
 </header>
 
@@ -337,10 +170,7 @@
 
 <footer>
   <div class="wrap footer-row">
-    <span style="display:flex;align-items:center;gap:8px;">
-      <img src="logo-taxiwal.jpg" alt="Taxi Wal" style="width:22px;height:22px;border-radius:50%;object-fit:cover;">
-      © 2026 Taxi Wal — Boussu, Belgique
-    </span>
+    <span>© 2017 Taxi Wal — Boussu, Belgique</span>
     <span>0032 495 35 35 94 · infotaxiwal@gmail.com</span>
   </div>
 </footer>

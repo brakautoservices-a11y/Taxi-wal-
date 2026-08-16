@@ -272,11 +272,10 @@
     border:1px solid rgba(255,255,255,.12);
     border-radius:10px;padding:12px 14px;
     display:flex;justify-content:space-between;align-items:center;
-    font-size:.9rem;
+    font-size:.9rem;cursor:pointer;transition:border-color .15s, background .15s;
   }
   .quote-item span:first-child{font-weight:600;}
   .quote-item span:last-child{color:var(--green-light);font-weight:600;}
-  .quote-item{cursor:pointer;transition:border-color .15s, background .15s;}
   .quote-item:hover{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.1);}
 
   /* ---------- MODALE DEVIS ---------- */
@@ -447,14 +446,26 @@
   /* ---------- COVERAGE ---------- */
   .coverage-box{
     background:var(--ink);color:var(--paper);border-radius:16px;
-    padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:32px;
+    padding:22px 26px;display:grid;grid-template-columns:1fr 1fr;gap:16px;
   }
-  .coverage-box h3{font-size:1.2rem;margin-bottom:12px;color:var(--brass-light);}
-  .coverage-box .pill-list{display:flex;flex-wrap:wrap;gap:8px;}
+  .coverage-box details{border-bottom:none;}
+  .coverage-box summary{
+    list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+    font-family:'Fraunces',serif;font-size:1.1rem;color:var(--brass-light);padding:6px 0;
+  }
+  .coverage-box summary::-webkit-details-marker{display:none;}
+  .coverage-box summary::after{
+    content:"+";width:20px;height:20px;border-radius:50%;background:var(--brass);color:#fff;
+    font-size:.85rem;font-weight:700;line-height:20px;text-align:center;flex-shrink:0;
+  }
+  .coverage-box details[open] summary::after{content:"–";}
+  .coverage-box summary .count{font-size:.75rem;color:#C9CFDC;font-family:'Inter',sans-serif;font-weight:400;margin-left:8px;}
+  .coverage-box .pill-list{display:flex;flex-wrap:wrap;gap:8px;padding-top:12px;}
   .pill{
     font-size:.82rem;padding:6px 12px;border-radius:999px;
     background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
   }
+  @media (max-width:680px){.coverage-box{grid-template-columns:1fr;padding:18px 18px;}}
 
   /* ---------- REVIEWS ---------- */
   .review-summary{
@@ -889,12 +900,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   <!-- POINTS DE CONFIANCE -->
   <div class="trust-grid">
-    <div class="trust-item"><span class="trust-icon">🕐</span><strong>24h/24 — 7j/7</strong><p>Disponible à tout moment, jour et nuit.</p></div>
-    <div class="trust-item"><span class="trust-icon">🤵</span><strong>Chauffeurs professionnels</strong><p>Courtois, ponctuels et compétents.</p></div>
-    <div class="trust-item"><span class="trust-icon">📱</span><strong>Réservation pratique</strong><p>En ligne, par téléphone ou WhatsApp.</p></div>
-    <div class="trust-item"><span class="trust-icon">⏱️</span><strong>Ponctualité</strong><p>À l'heure, à chaque trajet.</p></div>
-    <div class="trust-item"><span class="trust-icon">💶</span><strong>Tarifs officiels</strong><p>Grille région wallonne, sans surprise.</p></div>
-    <div class="trust-item"><span class="trust-icon">🚘</span><strong>Trajets confortables</strong><p>Véhicules récents et bien entretenus.</p></div>
+    <div class="trust-item" data-info-trigger data-title="24h/24 — 7j/7" data-icon="🕐" data-desc="Taxi Wal est disponible à tout moment, de jour comme de nuit, 7 jours sur 7. Un vol tôt le matin, un imprévu tard le soir : on s'adapte à votre planning, pas l'inverse."><span class="trust-icon">🕐</span><strong>24h/24 — 7j/7</strong><p>Disponible à tout moment, jour et nuit.</p></div>
+    <div class="trust-item" data-info-trigger data-title="Chauffeurs professionnels" data-icon="🤵" data-desc="Nos chauffeurs sont courtois, ponctuels et compétents. Ils connaissent parfaitement la région et vous accompagnent avec sérieux, que ce soit pour un trajet du quotidien ou un événement particulier."><span class="trust-icon">🤵</span><strong>Chauffeurs professionnels</strong><p>Courtois, ponctuels et compétents.</p></div>
+    <div class="trust-item" data-info-trigger data-title="Réservation pratique" data-icon="📱" data-desc="Réservez comme vous le souhaitez : en ligne via le site, par téléphone, ou directement par WhatsApp. Une confirmation rapide, sans complication."><span class="trust-icon">📱</span><strong>Réservation pratique</strong><p>En ligne, par téléphone ou WhatsApp.</p></div>
+    <div class="trust-item" data-info-trigger data-title="Ponctualité" data-icon="⏱️" data-desc="À l'heure, à chaque trajet. Nos chauffeurs anticipent la circulation et les imprévus pour que vous arriviez toujours à destination dans les temps."><span class="trust-icon">⏱️</span><strong>Ponctualité</strong><p>À l'heure, à chaque trajet.</p></div>
+    <div class="trust-item" data-info-trigger data-title="Tarifs officiels" data-icon="💶" data-desc="Nos tarifs suivent la grille officielle de la région wallonne et de la commune : prise en charge, prix au km, course minimum. Aucune surprise à l'arrivée."><span class="trust-icon">💶</span><strong>Tarifs officiels</strong><p>Grille région wallonne, sans surprise.</p></div>
+    <div class="trust-item" data-info-trigger data-title="Trajets confortables" data-icon="🚘" data-desc="Véhicules récents et bien entretenus (Renault Trafic, BMW, Mercedes, Toyota Corolla) pour un trajet agréable, que vous soyez seul, en famille ou en groupe."><span class="trust-icon">🚘</span><strong>Trajets confortables</strong><p>Véhicules récents et bien entretenus.</p></div>
   </div>
 
   <!-- SERVICES -->
@@ -981,26 +992,26 @@ document.addEventListener("DOMContentLoaded", () => {
   <!-- ZONE -->
   <section id="zone">
     <div class="coverage-box">
-      <div>
-        <h3>Zone couverte</h3>
-        <p style="color:#C9CFDC;font-size:.9rem;margin-bottom:16px;">Basés à Boussu, nous desservons toute la région et au-delà.</p>
+      <details>
+        <summary>Zone couverte <span class="count">(11 villes)</span></summary>
+        <p style="color:#C9CFDC;font-size:.85rem;margin-bottom:10px;">Basés à Boussu, nous desservons toute la région et au-delà.</p>
         <div class="pill-list">
           <span class="pill">Mons</span><span class="pill">Saint-Ghislain</span><span class="pill">Boussu</span>
           <span class="pill">Dour</span><span class="pill">Quiévrain</span><span class="pill">Bernissart</span>
           <span class="pill">Colfontaine</span><span class="pill">Frameries</span><span class="pill">La Louvière</span>
           <span class="pill">Borinage</span><span class="pill">Soignies</span>
         </div>
-      </div>
-      <div>
-        <h3>Aéroports & grandes villes</h3>
-        <p style="color:#C9CFDC;font-size:.9rem;margin-bottom:16px;">Navettes longue distance vers toute l'Europe.</p>
+      </details>
+      <details>
+        <summary>Aéroports & grandes villes <span class="count">(12 destinations)</span></summary>
+        <p style="color:#C9CFDC;font-size:.85rem;margin-bottom:10px;">Navettes longue distance vers toute l'Europe.</p>
         <div class="pill-list">
           <span class="pill">Bruxelles</span><span class="pill">Charleroi</span><span class="pill">Liège</span>
           <span class="pill">Ostende</span><span class="pill">Lille</span><span class="pill">Paris</span>
           <span class="pill">Luxembourg</span><span class="pill">Amsterdam</span><span class="pill">Cologne</span>
           <span class="pill">Düsseldorf</span><span class="pill">Francfort</span><span class="pill">Londres</span>
         </div>
-      </div>
+      </details>
     </div>
   </section>
 
