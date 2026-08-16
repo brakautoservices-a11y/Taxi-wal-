@@ -174,21 +174,11 @@
     color:#fff;padding:40px 28px;
   }
   .hero-slide{
-    position:absolute;inset:0;background-size:cover;
+    position:absolute;inset:0;background-size:cover;background-position:center;
     opacity:0;z-index:0;
-    animation:hero-slideshow 20s infinite;
+    transition:opacity 1.2s ease-in-out;
   }
-  .hero-slide:nth-child(1){background-image:url('héros-flotte.jpg');background-position:center 68%;animation-delay:0s;}
-  .hero-slide:nth-child(2){background-image:url('bmw-serie5.jpg');background-position:center 55%;animation-delay:5s;}
-  .hero-slide:nth-child(3){background-image:url('mercedes-classe-e.jpg');background-position:center 55%;animation-delay:10s;}
-  .hero-slide:nth-child(4){background-image:url('renault-trafic.jpg');background-position:center 55%;animation-delay:15s;}
-  @keyframes hero-slideshow{
-    0%{opacity:0;transform:scale(1.02);}
-    3%{opacity:1;}
-    22%{opacity:1;transform:scale(1.1);}
-    25%{opacity:0;}
-    100%{opacity:0;}
-  }
+  .hero-slide.active{opacity:1;z-index:1;}
   .hero-photo-zone::after{
     content:"";position:absolute;inset:0;
     background:
@@ -199,8 +189,7 @@
   }
   .hero-photo-zone .hero-text{max-width:640px;position:relative;z-index:2;}
   @media (prefers-reduced-motion: reduce){
-    .hero-slide{animation:none;opacity:1;}
-    .hero-slide:nth-child(n+2){display:none;}
+    .hero-slide{transition:none;}
   }
   .hero-phone-pill{
     display:inline-flex;align-items:center;gap:10px;
@@ -339,7 +328,15 @@
   }
   .trust-item{
     background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-    padding:12px 10px;text-align:center;
+    padding:12px 10px;text-align:center;cursor:pointer;transition:border-color .15s, transform .15s;
+    position:relative;
+  }
+  .trust-item:hover{border-color:var(--green);transform:translateY(-2px);}
+  .trust-item:active{transform:translateY(0);}
+  .trust-item::after{
+    content:"+";position:absolute;top:6px;right:6px;
+    width:17px;height:17px;border-radius:50%;background:var(--brass);color:#fff;
+    font-size:.72rem;font-weight:700;line-height:17px;text-align:center;
   }
   .trust-icon{font-size:1.2rem;display:block;margin-bottom:5px;}
   .trust-item strong{display:block;font-size:.78rem;margin-bottom:2px;}
@@ -544,16 +541,45 @@
     .booking{grid-template-columns:1fr;padding:26px;}
   }
   @media (max-width:680px){
+    .wrap{padding:0 14px;}
     .wrap.nav{padding:0 12px;}
     .nav{padding:10px 0;}
     nav.links{display:none;}
     .menu-toggle{display:block;}
-    .hero h1{font-size:2.1rem;}
+    .hero{padding:0 0 32px;}
+    .hero-photo-zone{padding:24px 18px;min-height:auto;}
+    .hero h1{font-size:1.9rem;margin-bottom:12px;}
+    .hero p.lead{font-size:.94rem;margin-bottom:18px;}
+    .hero .cta-row{margin-bottom:16px;}
+    .hero-phone-pill{padding:9px 16px;font-size:.88rem;margin-bottom:14px;}
+    .eyebrow{margin-bottom:10px;}
+    .trust-row{gap:8px 16px;font-size:.8rem;}
     .service-grid{grid-template-columns:repeat(3,1fr);gap:8px;}
     .fleet-grid{grid-template-columns:1fr;}
     .form-row{grid-template-columns:1fr;}
     .nav-cta{gap:6px;}
     .nav-cta .btn-ghost{padding:8px 9px;}
+    .review-summary{padding:16px 18px;gap:6px 14px;}
+    .rating-num{font-size:1.7rem;}
+    .review-summary .stars{font-size:.95rem;}
+    .review-summary > div:nth-child(2){display:flex;flex-direction:column;gap:2px;}
+    .review-summary a.btn{margin-left:0 !important;width:100%;justify-content:center;margin-top:4px;}
+    .section-head{margin-bottom:14px;}
+    .section-head .eyebrow{margin-bottom:4px;}
+    section{padding:20px 0;}
+    .review-grid-static{margin-bottom:8px;}
+    .review-summary{margin-bottom:10px;}
+    .estimate-box{padding:16px;margin-bottom:14px;}
+    .booking{padding:16px;gap:14px;}
+    .booking-info h2{font-size:1.3rem;margin-bottom:4px;}
+    .booking-info p{margin-bottom:10px;font-size:.88rem;}
+    .contact-line{margin-bottom:6px;}
+    form{gap:6px;}
+    .form-row{gap:6px;}
+    label{margin-bottom:1px;}
+    input,select,textarea{padding:7px 10px;}
+    textarea{min-height:44px;}
+    .form-actions{margin-top:0;}
     .nav-cta .btn-ghost .label{display:none;}
     .nav-cta .btn-brass{display:none;}
     #lang-switch{padding:6px 6px !important;font-size:.8rem !important;}
@@ -864,10 +890,7 @@ document.addEventListener("DOMContentLoaded", () => {
   <!-- HERO -->
   <section class="hero">
     <div class="hero-photo-zone" style="border-radius:14px;">
-        <div class="hero-slide"></div>
-        <div class="hero-slide"></div>
-        <div class="hero-slide"></div>
-        <div class="hero-slide"></div>
+        <div id="hero-slides"></div>
         <div class="hero-text">
           <a href="tel:+32495353594" class="hero-phone-pill">📞 0032 495 35 35 94</a>
           <div class="eyebrow"><span class="line"></span>Mons · Boussu · Saint-Ghislain · Borinage</div>
@@ -1474,6 +1497,36 @@ document.addEventListener("DOMContentLoaded", () => {
       openDevis(infoCurrentTitle, "");
     }
   });
+
+  // ---------- DIAPORAMA HERO ----------
+  const heroPhotos = [
+    "héros-flotte.jpg",
+    "bmw-serie5.jpg",
+    "mercedes-classe-e.jpg",
+    "renault-trafic.jpg",
+    "hero-flotte-nuit1.jpg",
+    "hero-flotte-jour1.jpg",
+    "hero-flotte-nuit2.jpg",
+    "hero-flotte-jour2.jpg",
+    "hero-flotte-soir-chateau.jpg",
+    "hero-mercedes-ath.jpg"
+  ];
+  const heroContainer = document.getElementById("hero-slides");
+  if(heroContainer){
+    heroPhotos.forEach((src, i) => {
+      const div = document.createElement("div");
+      div.className = "hero-slide" + (i === 0 ? " active" : "");
+      div.style.backgroundImage = `url('${src}')`;
+      heroContainer.appendChild(div);
+    });
+    const slides = heroContainer.querySelectorAll(".hero-slide");
+    let heroIndex = 0;
+    setInterval(() => {
+      slides[heroIndex].classList.remove("active");
+      heroIndex = (heroIndex + 1) % slides.length;
+      slides[heroIndex].classList.add("active");
+    }, 2800);
+  }
 </script>
 
 </body>
