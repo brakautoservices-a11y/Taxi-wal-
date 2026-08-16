@@ -324,6 +324,21 @@
   }
   .route .track{flex:1;height:1px;background:repeating-linear-gradient(90deg,var(--brass) 0 6px, transparent 6px 12px);}
 
+  /* ---------- POINTS DE CONFIANCE ---------- */
+  .trust-grid{
+    display:grid;grid-template-columns:repeat(6,1fr);gap:14px;
+    margin-bottom:16px;
+  }
+  .trust-item{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 14px;text-align:center;
+  }
+  .trust-icon{font-size:1.4rem;display:block;margin-bottom:8px;}
+  .trust-item strong{display:block;font-size:.82rem;margin-bottom:4px;}
+  .trust-item p{font-size:.72rem;color:var(--slate);margin:0;line-height:1.4;}
+  @media (max-width:900px){.trust-grid{grid-template-columns:repeat(3,1fr);}}
+  @media (max-width:560px){.trust-grid{grid-template-columns:repeat(2,1fr);}}
+
   /* ---------- SECTION BASE ---------- */
   section{padding:60px 0;}
   .section-head{max-width:640px;margin-bottom:36px;}
@@ -833,6 +848,16 @@ document.addEventListener("DOMContentLoaded", () => {
   </section>
 
   <div class="route"><span class="track"></span> Domicile → Gare → Aéroport → Destination <span class="track"></span></div>
+
+  <!-- POINTS DE CONFIANCE -->
+  <div class="trust-grid">
+    <div class="trust-item"><span class="trust-icon">🕐</span><strong>24h/24 — 7j/7</strong><p>Disponible à tout moment, jour et nuit.</p></div>
+    <div class="trust-item"><span class="trust-icon">🤵</span><strong>Chauffeurs professionnels</strong><p>Courtois, ponctuels et compétents.</p></div>
+    <div class="trust-item"><span class="trust-icon">📱</span><strong>Réservation pratique</strong><p>En ligne, par téléphone ou WhatsApp.</p></div>
+    <div class="trust-item"><span class="trust-icon">⏱️</span><strong>Ponctualité</strong><p>À l'heure, à chaque trajet.</p></div>
+    <div class="trust-item"><span class="trust-icon">💶</span><strong>Tarifs officiels</strong><p>Grille région wallonne, sans surprise.</p></div>
+    <div class="trust-item"><span class="trust-icon">🚘</span><strong>Trajets confortables</strong><p>Véhicules récents et bien entretenus.</p></div>
+  </div>
 
   <!-- SERVICES -->
   <section id="services">
