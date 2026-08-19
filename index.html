@@ -597,6 +597,7 @@
     .btn,.service-card{transition:none;}
   }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -614,6 +615,9 @@ const CONFIG = {
   whatsapp_numero: "32495353594",
   email: "infotaxiwal@gmail.com",
   formspree_endpoint: "https://formspree.io/f/xwleqqgl",
+  emailjs_service_id: "Hamza4119_9cb8vbq",
+  emailjs_template_id: "template_rwz9fh7",
+  emailjs_public_key: "4M5btJLpy3Lo8I1t5",
   fiche_google_url: "https://maps.app.goo.gl/pMnduRUgnQnUZ6KN8",
   lien_laisser_avis: "https://maps.app.goo.gl/pMnduRUgnQnUZ6KN8",
   note_google: "4.8",
@@ -1369,24 +1373,27 @@ document.addEventListener("DOMContentLoaded", () => {
     bookingStatus.className = "";
     bookingStatus.textContent = "";
 
-    fetch(CONFIG.formspree_endpoint, {
-      method:"POST",
-      headers:{"Accept":"application/json"},
-      body:new FormData(bookingForm)
-    }).then(res => {
-      btn.disabled = false;
-      if(res.ok){
+    const params = {
+      name: document.getElementById("nom").value,
+      phone: document.getElementById("tel").value,
+      depart: document.getElementById("depart").value,
+      arrivee: document.getElementById("dest").value,
+      date: document.getElementById("date").value,
+      message: (document.getElementById("passagers").value ? "Passagers : " + document.getElementById("passagers").value + ". " : "") + document.getElementById("message").value
+    };
+
+    emailjs.send(CONFIG.emailjs_service_id, CONFIG.emailjs_template_id, params, CONFIG.emailjs_public_key)
+      .then(() => {
+        btn.disabled = false;
         bookingStatus.className = "ok";
         bookingStatus.textContent = "✅ Merci ! Votre demande a bien été envoyée, nous vous répondons rapidement.";
         bookingForm.reset();
-      } else {
-        throw new Error("send failed");
-      }
-    }).catch(() => {
-      btn.disabled = false;
-      bookingStatus.className = "err";
-      bookingStatus.innerHTML = `⚠️ L'envoi a échoué. Contactez-nous directement par <a href="mailto:${CONFIG.email}" style="text-decoration:underline;">email</a> ou <a href="https://wa.me/${CONFIG.whatsapp_numero}" target="_blank" rel="noopener" style="text-decoration:underline;">WhatsApp</a>.`;
-    });
+      })
+      .catch(() => {
+        btn.disabled = false;
+        bookingStatus.className = "err";
+        bookingStatus.innerHTML = `⚠️ L'envoi a échoué. Contactez-nous directement par <a href="mailto:${CONFIG.email}" style="text-decoration:underline;">email</a> ou <a href="https://wa.me/${CONFIG.whatsapp_numero}" target="_blank" rel="noopener" style="text-decoration:underline;">WhatsApp</a>.`;
+      });
   });
 
   // ---------- MODALE DEVIS ----------
@@ -1417,24 +1424,27 @@ document.addEventListener("DOMContentLoaded", () => {
     devisStatus.className = "";
     devisStatus.textContent = "";
 
-    fetch(CONFIG.formspree_endpoint, {
-      method:"POST",
-      headers:{"Accept":"application/json"},
-      body:new FormData(devisForm)
-    }).then(res => {
-      btn.disabled = false;
-      if(res.ok){
+    const params = {
+      name: document.getElementById("devis-nom").value,
+      phone: document.getElementById("devis-tel").value,
+      depart: document.getElementById("devis-trajet").value,
+      arrivee: document.getElementById("devis-vehicule").value,
+      date: document.getElementById("devis-date").value,
+      message: document.getElementById("devis-message").value + (document.getElementById("devis-email").value ? " (email : " + document.getElementById("devis-email").value + ")" : "")
+    };
+
+    emailjs.send(CONFIG.emailjs_service_id, CONFIG.emailjs_template_id, params, CONFIG.emailjs_public_key)
+      .then(() => {
+        btn.disabled = false;
         devisStatus.className = "ok";
         devisStatus.textContent = "✅ Merci ! Votre demande de devis a bien été envoyée, nous vous répondons rapidement.";
         devisForm.reset();
-      } else {
-        throw new Error("send failed");
-      }
-    }).catch(() => {
-      btn.disabled = false;
-      devisStatus.className = "err";
-      devisStatus.innerHTML = `⚠️ L'envoi a échoué. Contactez-nous directement par <a href="mailto:${CONFIG.email}" style="text-decoration:underline;">email</a> ou <a href="https://wa.me/${CONFIG.whatsapp_numero}" target="_blank" rel="noopener" style="text-decoration:underline;">WhatsApp</a>.`;
-    });
+      })
+      .catch(() => {
+        btn.disabled = false;
+        devisStatus.className = "err";
+        devisStatus.innerHTML = `⚠️ L'envoi a échoué. Contactez-nous directement par <a href="mailto:${CONFIG.email}" style="text-decoration:underline;">email</a> ou <a href="https://wa.me/${CONFIG.whatsapp_numero}" target="_blank" rel="noopener" style="text-decoration:underline;">WhatsApp</a>.`;
+      });
   });
 
   // ---------- MODALE INFO (services / flotte) ----------
