@@ -1389,10 +1389,10 @@ document.addEventListener("DOMContentLoaded", () => {
         bookingStatus.textContent = "✅ Merci ! Votre demande a bien été envoyée, nous vous répondons rapidement.";
         bookingForm.reset();
       })
-      .catch(() => {
+      .catch((err) => {
         btn.disabled = false;
         bookingStatus.className = "err";
-        bookingStatus.innerHTML = `⚠️ L'envoi a échoué. Contactez-nous directement par <a href="mailto:${CONFIG.email}" style="text-decoration:underline;">email</a> ou <a href="https://wa.me/${CONFIG.whatsapp_numero}" target="_blank" rel="noopener" style="text-decoration:underline;">WhatsApp</a>.`;
+        bookingStatus.innerHTML = `⚠️ L'envoi a échoué. Contactez-nous directement par <a href="mailto:${CONFIG.email}" style="text-decoration:underline;">email</a> ou <a href="https://wa.me/${CONFIG.whatsapp_numero}" target="_blank" rel="noopener" style="text-decoration:underline;">WhatsApp</a>.<br><small style="opacity:.7;">Détail technique : ${err && err.text ? err.text : JSON.stringify(err)}</small>`;
       });
   });
 
