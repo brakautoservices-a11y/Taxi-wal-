@@ -1169,6 +1169,9 @@ document.addEventListener("DOMContentLoaded", () => {
           <div><label for="tel">Téléphone</label><input id="tel" type="tel" required></div>
         </div>
         <div>
+          <label for="email">Email</label><input id="email" type="email" required>
+        </div>
+        <div>
           <label for="depart">Adresse de départ</label><input id="depart" required>
         </div>
         <div>
@@ -1385,6 +1388,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = {
       name: document.getElementById("nom").value,
       phone: document.getElementById("tel").value,
+      email: document.getElementById("email").value,
+      reply_to: document.getElementById("email").value,
       depart: document.getElementById("depart").value,
       arrivee: document.getElementById("dest").value,
       date: document.getElementById("date").value,
@@ -1436,10 +1441,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = {
       name: document.getElementById("devis-nom").value,
       phone: document.getElementById("devis-tel").value,
+      email: document.getElementById("devis-email").value,
+      reply_to: document.getElementById("devis-email").value,
       depart: document.getElementById("devis-trajet").value,
       arrivee: document.getElementById("devis-vehicule").value,
       date: document.getElementById("devis-date").value,
-      message: document.getElementById("devis-message").value + (document.getElementById("devis-email").value ? " (email : " + document.getElementById("devis-email").value + ")" : "")
+      message: document.getElementById("devis-message").value
     };
 
     emailjs.send(CONFIG.emailjs_service_id, CONFIG.emailjs_template_id, params, CONFIG.emailjs_public_key)
