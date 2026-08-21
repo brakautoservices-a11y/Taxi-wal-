@@ -1012,6 +1012,14 @@ document.addEventListener("DOMContentLoaded", () => {
         <h3>Groupes & familles</h3>
         <p>Véhicules spacieux jusqu'à 7 places pour les groupes, familles et bagages nombreux.</p>
       </div>
+      <div class="service-card" data-info-trigger
+           data-title="Voyages organisés & sorties de groupe"
+           data-desc="Sorties organisées pour maisons de repos, seniors et personnes à mobilité réduite : journée à la mer, parc animalier, visite de ville. Véhicule adapté selon le nombre de participants, forfait groupe ou tarif par personne, partout en Belgique."
+           data-icon="🚌">
+        <div class="icon">🚌</div>
+        <h3>Voyages organisés & groupes</h3>
+        <p>Sorties pour seniors, maisons de repos et groupes : mer, parcs, visites de ville, partout en Belgique.</p>
+      </div>
     </div>
   </section>
 
@@ -1168,7 +1176,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div class="form-row">
           <div><label for="date">Date</label><input id="date" type="date" required></div>
-          <div><label for="passagers">Nombre de passagers</label><input id="passagers" type="number" min="1" value="1"></div>
+          <div><label for="passagers">Nombre de passagers</label><input id="passagers" type="number" min="1" value="1" required></div>
         </div>
         <div>
           <label for="message">Message (optionnel)</label>
@@ -1248,16 +1256,17 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div>
           <label for="devis-email">Email</label>
-          <input id="devis-email" name="email" type="email" placeholder="votre@email.com">
+          <input id="devis-email" name="email" type="email" placeholder="votre@email.com" required>
         </div>
         <div>
           <label for="devis-trajet">Trajet</label>
-          <input id="devis-trajet" name="trajet">
+          <input id="devis-trajet" name="trajet" required>
         </div>
         <div>
           <label for="devis-vehicule">Véhicule souhaité</label>
-          <select id="devis-vehicule" name="vehicule">
-            <option value="">Peu importe</option>
+          <select id="devis-vehicule" name="vehicule" required>
+            <option value="" disabled selected>Choisissez un véhicule</option>
+            <option value="Peu importe">Peu importe</option>
             <option value="Renault Trafic (7 places)">Renault Trafic (7 places)</option>
             <option value="Toyota Corolla Break">Toyota Corolla Break</option>
             <option value="BMW Série 5">BMW Série 5 (haut de gamme)</option>
@@ -1266,7 +1275,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div>
           <label for="devis-date">Date souhaitée</label>
-          <input id="devis-date" name="date" type="date">
+          <input id="devis-date" name="date" type="date" required>
         </div>
         <div>
           <label for="devis-message">Message (optionnel)</label>
