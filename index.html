@@ -3,6 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16942183293"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-16942183293');
+</script>
+<!-- Event snippet for Annonce Appel Direct conversion page -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-16942183293/Hm96CL6c8eUcEP3m1I4_',
+      'value': 1.0,
+      'currency': 'EUR',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
 <title>Taxi Wal — Chauffeur privé & Navettes aéroport | Mons, Boussu, Saint-Ghislain</title>
 <meta name="description" content="Taxi Wal : chauffeur privé, navette aéroport, transport PMR, entreprises et événements. Boussu, Mons, Saint-Ghislain. Réservation rapide, 24h/24.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -684,7 +710,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("lang-switch").value = saved;
   applyLang(saved);
   document.getElementById("lang-switch").addEventListener("change", (e) => applyLang(e.target.value));
-  document.querySelectorAll("[data-tel]").forEach(el => el.href = "tel:" + CONFIG.telephone_lien);
+  document.querySelectorAll("[data-tel]").forEach(el => {
+    el.href = "tel:" + CONFIG.telephone_lien;
+    el.addEventListener("click", () => gtag_report_conversion());
+  });
+  document.querySelectorAll("a[href^='tel:']:not([data-tel])").forEach(el => {
+    el.addEventListener("click", () => gtag_report_conversion());
+  });
   document.querySelectorAll("[data-tel-text]").forEach(el => el.textContent = CONFIG.telephone_affiche);
   document.querySelectorAll("[data-mail]").forEach(el => el.href = "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent("Demande de course - Taxi Wal"));
   document.querySelectorAll("[data-mail-text]").forEach(el => el.textContent = CONFIG.email);
@@ -1169,9 +1201,6 @@ document.addEventListener("DOMContentLoaded", () => {
           <div><label for="tel">Téléphone</label><input id="tel" type="tel" required></div>
         </div>
         <div>
-          <label for="email">Email</label><input id="email" type="email" required>
-        </div>
-        <div>
           <label for="depart">Adresse de départ</label><input id="depart" required>
         </div>
         <div>
@@ -1179,9 +1208,6 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div class="form-row">
           <div><label for="date">Date</label><input id="date" type="date" required></div>
-          <div><label for="heure">Heure</label><input id="heure" type="time" required></div>
-        </div>
-        <div class="form-row">
           <div><label for="passagers">Nombre de passagers</label><input id="passagers" type="number" min="1" value="1" required></div>
         </div>
         <div>
@@ -1391,11 +1417,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = {
       name: document.getElementById("nom").value,
       phone: document.getElementById("tel").value,
-      email: document.getElementById("email").value,
-      reply_to: document.getElementById("email").value,
       depart: document.getElementById("depart").value,
       arrivee: document.getElementById("dest").value,
-      date: document.getElementById("date").value + (document.getElementById("heure").value ? " à " + document.getElementById("heure").value : ""),
+      date: document.getElementById("date").value,
       message: (document.getElementById("passagers").value ? "Passagers : " + document.getElementById("passagers").value + ". " : "") + document.getElementById("message").value
     };
 
@@ -1444,12 +1468,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = {
       name: document.getElementById("devis-nom").value,
       phone: document.getElementById("devis-tel").value,
-      email: document.getElementById("devis-email").value,
-      reply_to: document.getElementById("devis-email").value,
       depart: document.getElementById("devis-trajet").value,
       arrivee: document.getElementById("devis-vehicule").value,
       date: document.getElementById("devis-date").value,
-      message: document.getElementById("devis-message").value
+      message: document.getElementById("devis-message").value + (document.getElementById("devis-email").value ? " (email : " + document.getElementById("devis-email").value + ")" : "")
     };
 
     emailjs.send(CONFIG.emailjs_service_id, CONFIG.emailjs_template_id, params, CONFIG.emailjs_public_key)
