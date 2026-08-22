@@ -1179,6 +1179,9 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div class="form-row">
           <div><label for="date">Date</label><input id="date" type="date" required></div>
+          <div><label for="heure">Heure</label><input id="heure" type="time" required></div>
+        </div>
+        <div class="form-row">
           <div><label for="passagers">Nombre de passagers</label><input id="passagers" type="number" min="1" value="1" required></div>
         </div>
         <div>
@@ -1392,7 +1395,7 @@ document.addEventListener("DOMContentLoaded", () => {
       reply_to: document.getElementById("email").value,
       depart: document.getElementById("depart").value,
       arrivee: document.getElementById("dest").value,
-      date: document.getElementById("date").value,
+      date: document.getElementById("date").value + (document.getElementById("heure").value ? " à " + document.getElementById("heure").value : ""),
       message: (document.getElementById("passagers").value ? "Passagers : " + document.getElementById("passagers").value + ". " : "") + document.getElementById("message").value
     };
 
