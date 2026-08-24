@@ -1201,6 +1201,10 @@ document.addEventListener("DOMContentLoaded", () => {
           <div><label for="tel">Téléphone</label><input id="tel" type="tel" required></div>
         </div>
         <div>
+          <label for="booking-email">Email</label>
+          <input id="booking-email" type="email" placeholder="votre@email.com" required>
+        </div>
+        <div>
           <label for="depart">Adresse de départ</label><input id="depart" required>
         </div>
         <div>
@@ -1209,6 +1213,17 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="form-row">
           <div><label for="date">Date</label><input id="date" type="date" required></div>
           <div><label for="passagers">Nombre de passagers</label><input id="passagers" type="number" min="1" value="1" required></div>
+        </div>
+        <div>
+          <label for="booking-vehicule">Véhicule souhaité</label>
+          <select id="booking-vehicule" required>
+            <option value="" disabled selected>Choisissez un véhicule</option>
+            <option value="Peu importe">Peu importe</option>
+            <option value="Renault Trafic (7 places)">Renault Trafic (7 places)</option>
+            <option value="Toyota Corolla Break">Toyota Corolla Break</option>
+            <option value="BMW Série 5">BMW Série 5 (haut de gamme)</option>
+            <option value="Mercedes Classe E">Mercedes Classe E (haut de gamme)</option>
+          </select>
         </div>
         <div>
           <label for="message">Message (optionnel)</label>
@@ -1417,10 +1432,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = {
       name: document.getElementById("nom").value,
       phone: document.getElementById("tel").value,
+      email: document.getElementById("booking-email").value,
       depart: document.getElementById("depart").value,
       arrivee: document.getElementById("dest").value,
       date: document.getElementById("date").value,
-      message: (document.getElementById("passagers").value ? "Passagers : " + document.getElementById("passagers").value + ". " : "") + document.getElementById("message").value
+      message: "Véhicule souhaité : " + document.getElementById("booking-vehicule").value +
+        (document.getElementById("passagers").value ? ". Passagers : " + document.getElementById("passagers").value + "." : "") +
+        (document.getElementById("message").value ? " " + document.getElementById("message").value : "")
     };
 
     emailjs.send(CONFIG.emailjs_service_id, CONFIG.emailjs_template_id, params, CONFIG.emailjs_public_key)
@@ -1468,10 +1486,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = {
       name: document.getElementById("devis-nom").value,
       phone: document.getElementById("devis-tel").value,
+      email: document.getElementById("devis-email").value,
       depart: document.getElementById("devis-trajet").value,
       arrivee: document.getElementById("devis-vehicule").value,
       date: document.getElementById("devis-date").value,
-      message: document.getElementById("devis-message").value + (document.getElementById("devis-email").value ? " (email : " + document.getElementById("devis-email").value + ")" : "")
+      message: document.getElementById("devis-message").value
     };
 
     emailjs.send(CONFIG.emailjs_service_id, CONFIG.emailjs_template_id, params, CONFIG.emailjs_public_key)
