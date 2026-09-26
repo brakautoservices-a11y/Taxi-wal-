@@ -148,6 +148,56 @@ function gtag_report_conversion(url) {
     font-size:1.5rem;line-height:1;cursor:pointer;color:var(--ink);
     padding:8px 12px;flex-shrink:0;
   }
+  /* Bouton ☰ flottant : n'apparaît qu'après avoir fait défiler la page */
+  #floating-menu-btn{
+    display:none;position:fixed;top:14px;right:14px;z-index:250;
+    width:46px;height:46px;border-radius:12px;border:none;cursor:pointer;
+    background:var(--ink);color:#fff;font-size:1.4rem;line-height:1;
+    box-shadow:0 4px 16px rgba(0,0,0,.25);
+  }
+  #floating-menu-btn.show{display:block;}
+
+  /* ---------- BLOC "RÉSERVEZ VIA L'APP" ---------- */
+  .app-promo{
+    position:relative;overflow:hidden;
+    margin:0 0 28px;padding:36px 22px 30px;text-align:center;
+    background:var(--ink);color:#fff;border-radius:18px;
+  }
+  .app-promo::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(179,20,27,.45), transparent 50%),
+      radial-gradient(circle at 95% 100%, rgba(30,107,60,.45), transparent 55%);
+  }
+  .app-promo > *{position:relative;}
+  .app-icon{
+    width:150px;height:150px;border-radius:34px;margin:0 auto 20px;
+    background:linear-gradient(160deg,#fff 0%,#ECE9E2 100%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 14px 40px rgba(179,20,27,.45), 0 0 0 5px rgba(255,255,255,.1);
+  }
+  .app-icon svg{width:96px;height:124px;display:block;}
+  .app-promo h2{font-size:2.1rem;margin-bottom:10px;color:#fff;}
+  .app-promo .app-sous{color:rgba(255,255,255,.82);max-width:48ch;margin:0 auto 20px;font-size:1rem;}
+  .app-avantages{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:24px;}
+  .app-avantages span{
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+    border-radius:999px;padding:7px 13px;font-size:.84rem;
+  }
+  .btn-app{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--brass);color:#fff;font-weight:800;font-size:1.2rem;
+    padding:18px 34px;border-radius:999px;width:100%;max-width:400px;
+    box-shadow:0 8px 26px rgba(179,20,27,.5);transition:transform .15s, background .15s;
+  }
+  .btn-app:hover{background:var(--brass-light);transform:translateY(-2px);}
+  .app-note{margin-top:14px;font-size:.8rem;color:rgba(255,255,255,.65);}
+  .btn-app-hero{background:#fff;color:var(--brass);font-weight:800;}
+  .btn-app-hero:hover{background:var(--paper-dim);}
+  .footer-app{
+    display:inline-flex;align-items:center;gap:8px;background:var(--brass);color:#fff;
+    font-weight:700;padding:11px 20px;border-radius:999px;font-size:.9rem;margin-bottom:16px;
+  }
 
   /* ---------- MENU LATÉRAL (☰) ---------- */
   #menu-overlay{
@@ -613,6 +663,10 @@ function gtag_report_conversion(url) {
     .btn-whatsapp .label{display:none;}
     .brand{font-size:1.05rem;gap:6px;}
     .navette-badge{padding:7px 10px;font-size:.72rem;}
+    .app-promo{padding:28px 16px 24px;}
+    .app-promo h2{font-size:1.65rem;}
+    .app-icon{width:130px;height:130px;border-radius:30px;}
+    .app-icon svg{width:82px;height:106px;}
   }
   @media (max-width:420px){
     .navette-badge .label{display:none;}
@@ -648,6 +702,8 @@ const CONFIG = {
   lien_laisser_avis: "https://maps.app.goo.gl/pMnduRUgnQnUZ6KN8",
   note_google: "4.8",
   votes_google: "avis vérifiés",
+  // Lien de l'application client Taxi Wal (réservation)
+  lien_app_client: "https://rasikhinternational-oss.github.io/taxiwal-chauffeur/client.html",
   // Tarifs officiels région wallonne / commune (grille affichée dans le véhicule)
   estimation: {
     prise_en_charge_jour: 3.10,
@@ -664,7 +720,11 @@ const I18N = {
     nav_zone:"Zone couverte", nav_avis:"Avis", nav_reservation:"Réservation", nav_reserver:"Réserver",
     hero_title:'Taxi Wal — Navette Aéroport & Chauffeur privé,<br><em>quand vous en avez besoin</em>.',
     hero_lead:"Navette aéroport, trajets sur mesure, entreprises et événements. Véhicules haut de gamme, chauffeurs professionnels, disponible 24h/24 — 7j/7.",
-    hero_cta1:"Réserver une course", hero_cta2:"WhatsApp direct",
+    hero_cta1:"Réserver une course", hero_cta2:"WhatsApp direct", hero_cta_app:"📲 Réserver via l'app",
+    app_title:"Réservez via l'app Taxi Wal",
+    app_lead:"Le plus simple et le plus rapide : réservez en quelques secondes, recevez votre prix et suivez votre course directement sur votre téléphone.",
+    app_btn:"📲 Réserver via l'app",
+    app_note:"Fonctionne sur tous les téléphones, sans rien installer. Bientôt disponible sur l'App Store et Google Play.",
     services_title:"Un service pour chaque situation",
     flotte_title:"Des véhicules récents et confortables",
     avis_title:"Avis clients vérifiés sur Google",
@@ -676,7 +736,11 @@ const I18N = {
     nav_zone:"Werkgebied", nav_avis:"Beoordelingen", nav_reservation:"Reservering", nav_reserver:"Reserveren",
     hero_title:'Privéchauffeur & Luchthavenshuttle,<br><em>wanneer u het nodig heeft</em>.',
     hero_lead:"Luchthavenvervoer, ritten op maat, bedrijven en evenementen. Voertuigen van hoge kwaliteit, professionele chauffeurs, 24u/24 — 7d/7 beschikbaar.",
-    hero_cta1:"Rit reserveren", hero_cta2:"Direct WhatsApp",
+    hero_cta1:"Rit reserveren", hero_cta2:"Direct WhatsApp", hero_cta_app:"📲 Reserveren via de app",
+    app_title:"Reserveer via de Taxi Wal-app",
+    app_lead:"De snelste en eenvoudigste manier: reserveer in enkele seconden, ontvang uw prijs en volg uw rit rechtstreeks op uw telefoon.",
+    app_btn:"📲 Reserveren via de app",
+    app_note:"Werkt op elke telefoon, zonder iets te installeren. Binnenkort beschikbaar in de App Store en Google Play.",
     services_title:"Een dienst voor elke situatie",
     flotte_title:"Recente en comfortabele voertuigen",
     avis_title:"Geverifieerde klantbeoordelingen op Google",
@@ -688,7 +752,11 @@ const I18N = {
     nav_zone:"Coverage area", nav_avis:"Reviews", nav_reservation:"Booking", nav_reserver:"Book now",
     hero_title:'Private Chauffeur & Airport Shuttle,<br><em>whenever you need it</em>.',
     hero_lead:"Airport shuttle, custom trips, business and events. Premium vehicles, professional drivers, available 24/7.",
-    hero_cta1:"Book a ride", hero_cta2:"WhatsApp direct",
+    hero_cta1:"Book a ride", hero_cta2:"WhatsApp direct", hero_cta_app:"📲 Book with the app",
+    app_title:"Book with the Taxi Wal app",
+    app_lead:"The quickest and easiest way: book in seconds, get your price and follow your ride right on your phone.",
+    app_btn:"📲 Book with the app",
+    app_note:"Works on any phone, nothing to install. Coming soon to the App Store and Google Play.",
     services_title:"A service for every situation",
     flotte_title:"Recent, comfortable vehicles",
     avis_title:"Verified customer reviews on Google",
@@ -724,6 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-google]").forEach(el => el.href = CONFIG.fiche_google_url);
   document.querySelectorAll("[data-leave-review]").forEach(el => el.href = CONFIG.lien_laisser_avis);
   document.querySelectorAll("[data-note]").forEach(el => el.textContent = CONFIG.note_google);
+  document.querySelectorAll("[data-app]").forEach(el => el.href = CONFIG.lien_app_client);
 
   // ---------- CARROUSEL AVIS ----------
   const reviewTrack = document.getElementById("real-reviews");
@@ -851,6 +920,7 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
   <div class="side-menu-body">
     <a href="#" class="side-link" data-close-menu>🏠 Taxi Wal — Accueil</a>
+    <a href="https://rasikhinternational-oss.github.io/taxiwal-chauffeur/client.html" data-app class="side-link" style="color:var(--brass);">📲 Réserver via l'app Taxi Wal</a>
 
     <details class="side-accordion">
       <summary>✈️ Navette Aéroport</summary>
@@ -933,6 +1003,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <h1 data-i18n="hero_title">Taxi Wal — Navette Aéroport & Chauffeur privé,<br><em>quand vous en avez besoin</em>.</h1>
           <p class="lead" data-i18n="hero_lead">Navette aéroport, trajets sur mesure, entreprises et événements. Véhicules haut de gamme, chauffeurs professionnels, disponible 24h/24 — 7j/7.</p>
           <div class="cta-row">
+            <a href="#app" class="btn btn-app-hero" data-i18n="hero_cta_app">📲 Réserver via l'app</a>
             <a href="#reservation" class="btn btn-brass" data-i18n="hero_cta1">Réserver une course</a>
             <a href="https://wa.me/32495353594" data-whatsapp class="btn btn-primary" target="_blank" rel="noopener" data-i18n="hero_cta2">WhatsApp direct</a>
           </div>
@@ -955,13 +1026,43 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </section>
 
+  <!-- RÉSERVEZ VIA L'APP -->
+  <div class="app-promo" id="app">
+    <div class="app-icon" aria-hidden="true">
+      <svg viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pinGradApp" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#D6353C"/>
+            <stop offset="100%" stop-color="#B3141B"/>
+          </linearGradient>
+          <clipPath id="pinPhotoClipApp">
+            <circle cx="50" cy="47" r="32"/>
+          </clipPath>
+        </defs>
+        <path d="M50 2 C24 2 4 22 4 47 C4 68 30 92 50 122 C70 92 96 68 96 47 C96 22 76 2 50 2 Z" fill="url(#pinGradApp)"/>
+        <image href="bmw-serie5.jpg" x="4" y="19" width="92" height="56" preserveAspectRatio="xMidYMid slice" clip-path="url(#pinPhotoClipApp)"/>
+        <circle cx="50" cy="47" r="34" fill="none" stroke="#1E6B3C" stroke-width="4"/>
+      </svg>
+    </div>
+    <h2 data-i18n="app_title">Réservez via l'app Taxi Wal</h2>
+    <p class="app-sous" data-i18n="app_lead">Le plus simple et le plus rapide : réservez en quelques secondes, recevez votre prix et suivez votre course directement sur votre téléphone.</p>
+    <div class="app-avantages">
+      <span>💶 Prix confirmé avant le départ</span>
+      <span>📍 Suivi de votre chauffeur</span>
+      <span>🔔 Notifications en direct</span>
+      <span>🧾 Historique de vos trajets</span>
+    </div>
+    <a href="https://rasikhinternational-oss.github.io/taxiwal-chauffeur/client.html" data-app class="btn-app" data-i18n="app_btn">📲 Réserver via l'app</a>
+    <p class="app-note" data-i18n="app_note">Fonctionne sur tous les téléphones, sans rien installer. Bientôt disponible sur l'App Store et Google Play.</p>
+  </div>
+
   <div class="route"><span class="track"></span> Domicile → Gare → Aéroport → Destination <span class="track"></span></div>
 
   <!-- POINTS DE CONFIANCE -->
   <div class="trust-grid">
     <div class="trust-item" data-info-trigger data-title="24h/24 — 7j/7" data-icon="🕐" data-desc="Taxi Wal est disponible à tout moment, de jour comme de nuit, 7 jours sur 7. Un vol tôt le matin, un imprévu tard le soir : on s'adapte à votre planning, pas l'inverse."><span class="trust-icon">🕐</span><strong>24h/24 — 7j/7</strong><p>Disponible à tout moment, jour et nuit.</p></div>
     <div class="trust-item" data-info-trigger data-title="Chauffeurs professionnels" data-icon="🤵" data-desc="Nos chauffeurs sont courtois, ponctuels et compétents. Ils connaissent parfaitement la région et vous accompagnent avec sérieux, que ce soit pour un trajet du quotidien ou un événement particulier."><span class="trust-icon">🤵</span><strong>Chauffeurs professionnels</strong><p>Courtois, ponctuels et compétents.</p></div>
-    <div class="trust-item" data-info-trigger data-title="Réservation pratique" data-icon="📱" data-desc="Réservez comme vous le souhaitez : en ligne via le site, par téléphone, ou directement par WhatsApp. Une confirmation rapide, sans complication."><span class="trust-icon">📱</span><strong>Réservation pratique</strong><p>En ligne, par téléphone ou WhatsApp.</p></div>
+    <div class="trust-item" data-info-trigger data-title="Réservation pratique" data-icon="📱" data-desc="Réservez comme vous le souhaitez : via l'app Taxi Wal (le plus rapide), en ligne via le site, par téléphone, ou directement par WhatsApp. Une confirmation rapide, sans complication."><span class="trust-icon">📱</span><strong>Réservation pratique</strong><p>Via l'app, en ligne, par téléphone ou WhatsApp.</p></div>
     <div class="trust-item" data-info-trigger data-title="Ponctualité" data-icon="⏱️" data-desc="À l'heure, à chaque trajet. Nos chauffeurs anticipent la circulation et les imprévus pour que vous arriviez toujours à destination dans les temps."><span class="trust-icon">⏱️</span><strong>Ponctualité</strong><p>À l'heure, à chaque trajet.</p></div>
     <div class="trust-item" data-info-trigger data-title="Tarifs officiels" data-icon="💶" data-desc="Nos tarifs suivent la grille officielle de la région wallonne et de la commune : prise en charge, prix au km, course minimum. Aucune surprise à l'arrivée."><span class="trust-icon">💶</span><strong>Tarifs officiels</strong><p>Grille région wallonne, sans surprise.</p></div>
     <div class="trust-item" data-info-trigger data-title="Trajets confortables" data-icon="🚘" data-desc="Véhicules récents et bien entretenus (Renault Trafic, BMW, Mercedes, Toyota Corolla) pour un trajet agréable, que vous soyez seul, en famille ou en groupe."><span class="trust-icon">🚘</span><strong>Trajets confortables</strong><p>Véhicules récents et bien entretenus.</p></div>
@@ -1180,6 +1281,9 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="booking-info">
         <h2 data-i18n="booking_title">Réservez votre trajet</h2>
         <p data-i18n="booking_lead">Remplissez le formulaire ou contactez-nous directement — réponse rapide garantie.</p>
+        <a href="https://rasikhinternational-oss.github.io/taxiwal-chauffeur/client.html" data-app class="contact-line" style="color:var(--brass);font-weight:700;">
+          <span class="ico" style="background:var(--brass);">📲</span><span>Encore plus rapide : l'app Taxi Wal</span>
+        </a>
         <a href="tel:+32495353594" data-tel class="contact-line">
           <span class="ico">📞</span><span data-tel-text>0032 495 35 35 94</span>
         </a>
@@ -1375,6 +1479,9 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
 <footer>
+  <div class="wrap" style="text-align:center;">
+    <a href="https://rasikhinternational-oss.github.io/taxiwal-chauffeur/client.html" data-app class="footer-app">📲 Réservez via l'app Taxi Wal</a>
+  </div>
   <div class="wrap" style="padding-bottom:14px;font-size:.82rem;line-height:2;">
     <a href="taxi-boussu.html" style="margin-right:14px;text-decoration:underline;">Taxi Boussu</a>
     <a href="taxi-mons.html" style="margin-right:14px;text-decoration:underline;">Taxi Mons</a>
